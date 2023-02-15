@@ -10,3 +10,12 @@ def index(request):
 def imagem(request, id_foto):
     fotografia = get_object_or_404(Fotografia, pk=id_foto)
     return render(request, "galeria/imagem.html", {"fotografia": fotografia})
+
+
+def buscar(request):
+    fotografias = Fotografia.objects.order_by("criada_em").filter(publicada=True)
+    if "buscar" in request.GET:
+        nome = request.GET.get("buscar")
+        if nome:
+            fotografias = fotografias.filter(nome__icontains=nome)
+    return render(request, "galeria/buscar.html", {"cards": fotografias})
