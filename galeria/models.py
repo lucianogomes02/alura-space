@@ -1,5 +1,6 @@
 from django.db import models
 from enum import Enum
+from datetime import datetime
 
 
 class Categorias(Enum):
@@ -27,6 +28,7 @@ class Fotografia(models.Model):
         max_length=100, choices=Categorias.opcoes(), default=""
     )
     publicada = models.BooleanField(default=False)
+    criada_em = models.DateTimeField(default=datetime.now(), blank=False)
 
     def __str__(self):
         return f"Fotografia [nome={self.nome}]"

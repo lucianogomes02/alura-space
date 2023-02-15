@@ -4,7 +4,7 @@ from galeria.models import Fotografia
 
 
 class ListadorDeFotografias(admin.ModelAdmin):
-    list_display = ("id", "nome", "legenda", "foto", "publicada")
+    list_display = ("id", "nome", "legenda", "foto", "criada_em", "publicada")
     list_display_links = ("id", "nome")
     search_fields = ("nome",)
     list_filter = ("categoria",)
