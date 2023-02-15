@@ -19,13 +19,6 @@ class Categorias(Enum):
 
 
 class Fotografia(models.Model):
-    OPCOES_DE_CATEGORIA = [
-        ("NEBULOSA", "Nebulosa"),
-        ("ESTRELA", "Estrela"),
-        ("GALÁXIA", "Galáxia"),
-        ("PLANETA", "Planeta"),
-    ]
-
     nome = models.CharField(max_length=100, null=False, blank=False)
     legenda = models.CharField(max_length=150, null=False, blank=False)
     descricao = models.TextField(null=False, blank=False)
@@ -33,6 +26,7 @@ class Fotografia(models.Model):
     categoria = models.CharField(
         max_length=100, choices=Categorias.opcoes(), default=""
     )
+    publicada = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Fotografia [nome={self.nome}]"
