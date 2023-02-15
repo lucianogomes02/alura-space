@@ -12,10 +12,10 @@ class Categorias(Enum):
     @classmethod
     def opcoes(cls):
         return [
-            ("NEBULOSA", cls.NEBULOSA.value),
-            ("ESTRELA", cls.ESTRELA.value),
-            ("GALÁXIA", cls.GALAXIA.value),
-            ("PLANETA", cls.PLANETA.value),
+            (cls.NEBULOSA.value, cls.NEBULOSA.value),
+            (cls.ESTRELA.value, cls.ESTRELA.value),
+            (cls.GALAXIA.value, cls.GALAXIA.value),
+            (cls.PLANETA.value, cls.PLANETA.value),
         ]
 
 
