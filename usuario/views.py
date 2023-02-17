@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from usuario.forms import LoginForm, CadastroForm
 
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 
 
 def login(request):
@@ -23,8 +23,10 @@ def login(request):
 
             if usuario:
                 auth.login(request, usuario)
+                messages.success(request, f"{nome_de_login} logado com sucesso!")
                 return redirect("index")
             else:
+                messages.error(request, f"Erro ao fazer login.")
                 return redirect("login")
     return render(request, "usuario/login.html", {"formulario": formulario})
 
@@ -44,11 +46,13 @@ def cadastro(request):
             usario_ja_existe = User.objects.filter(username=nome_de_cadastro).exists()
 
             if senha != confirmacao_de_senha or usario_ja_existe:
+                messages.error(request, f"Senhas não são iguais ou usuário já existe.")
                 return redirect("cadastro")
 
             usuario = User.objects.create_user(
                 username=nome_de_cadastro, email=email, password=senha
             )
             usuario.save()
+            messages.success(request, f"{nome_de_cadastro} cadastrado com sucesso!")
             return redirect("login")
     return render(request, "usuario/cadastro.html", {"formulario": formulario})
