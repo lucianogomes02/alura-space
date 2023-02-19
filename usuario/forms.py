@@ -58,13 +58,23 @@ class CadastroForm(forms.Form):
     )
 
     def clean_nome_de_cadastro(self):
-        nome = self.cleaned_data("nome_de_cadastro")
+        nome = self.cleaned_data.get("nome_de_cadastro")
 
         if nome:
             nome = nome.strip()
             if " " in nome:
                 raise forms.ValidationError(
-                    "Não é possível inserir espaços no nome de usuário."
+                    "Não é possível inserir espaços no campo Nome de Cadastro."
                 )
             else:
                 return nome
+
+    def clean_confirmacao_de_senha(self):
+        senha = self.cleaned_data.get("senha")
+        confirmacao_de_senha = self.cleaned_data.get("confirmacao_de_senha")
+
+        if senha and confirmacao_de_senha:
+            if senha != confirmacao_de_senha:
+                raise forms.ValidationError("Senhas não são iguais")
+            else:
+                return confirmacao_de_senha
