@@ -56,3 +56,8 @@ def cadastro(request):
             messages.success(request, f"{nome_de_cadastro} cadastrado com sucesso!")
             return redirect("login")
     return render(request, "usuario/cadastro.html", {"formulario": formulario})
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect("login")
