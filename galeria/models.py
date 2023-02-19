@@ -2,6 +2,8 @@ from django.db import models
 from enum import Enum
 from datetime import datetime
 
+from django.contrib.auth.models import User
+
 
 class Categorias(Enum):
     NEBULOSA: str = "Nebulosa"
@@ -29,6 +31,13 @@ class Fotografia(models.Model):
     )
     publicada = models.BooleanField(default=False)
     criada_em = models.DateTimeField(default=datetime.now(), blank=False)
+    postada_por = models.ForeignKey(
+        to=User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=False,
+        related_name="usuario",
+    )
 
     def __str__(self):
         return self.nome
