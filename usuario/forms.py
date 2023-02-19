@@ -56,3 +56,15 @@ class CadastroForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "Digite sua senha novamente"}
         ),
     )
+
+    def clean_nome_de_cadastro(self):
+        nome = self.cleaned_data("nome_de_cadastro")
+
+        if nome:
+            nome = nome.strip()
+            if " " in nome:
+                raise forms.ValidationError(
+                    "Não é possível inserir espaços no nome de usuário."
+                )
+            else:
+                return nome
